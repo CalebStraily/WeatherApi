@@ -49,8 +49,8 @@ async function fetchData(latitude, longitude)
                 let column = document.createElement("div");
                 let mobileSpacing = document.createElement("div");
 
-                column.classList = "col-4 col-xl-3 text-center weatherColumn";
-                mobileSpacing.classList = "col-4 d-xl-none"
+                column.classList = "col-8 col-xl-3 text-center weatherColumn";
+                mobileSpacing.classList = "col-2 d-xl-none";
 
                 column.innerHTML =  `<h3>${data.properties.periods[i].name}</h3>
                                     Low and High: ${data.properties.periods[i+1].temperature}°F, ${data.properties.periods[i].temperature}°F <br />
