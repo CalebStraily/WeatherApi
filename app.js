@@ -1,22 +1,23 @@
 let weatherDisplay = document.querySelector(".weatherDisplay");
 
 // GET COORDINATES
-const findMe = () => {
+const findMe = () => 
+{
   
+    const success = (position) => 
+    {
+        status.textContent = "success";
+        const { latitude, longitude } = position.coords;
 
-    const success = (position) => {
-      console.log(position);
-      status.textContent = "success";
-      const { latitude, longitude } = position.coords;
-
-      fetchData(latitude, longitude);
+        fetchData(latitude, longitude);
     };
-    const error = () => {
-      
+    const error = () => 
+    {
+        console.log(error);
     };
   
     navigator.geolocation.getCurrentPosition(success, error);
-  };
+};
 
 findMe();
 
@@ -36,31 +37,23 @@ async function fetchData(latitude, longitude)
             console.log(error);
         })
 
-    console.log(forecastUrl);
-
     await fetch(forecastUrl)
         .then(response => response.json())
         .then(data => 
         {
-            console.log(data.properties.periods);
-
+            console.log(data);
             for (let i = 0; i < data.properties.periods.length; i += 2)
             {
-                let column = document.createElement("div");
-                let mobileSpacing = document.createElement("div");
+                let dayObject = 
+                {
+                    name: data.properties.periods[i].name,
+                    lowTemp: data.properties.periods[i+1].temperature,
+                    highTemp: data.properties.periods[i].temperature,
+                    conditions: data.properties.periods[i].shortForecast,
+                    imgSource: data.properties.periods[i].icon
+                }
 
-                column.classList = "col-8 col-xl-3 text-center weatherColumn";
-                mobileSpacing.classList = "col-2 d-xl-none";
-
-                column.innerHTML =  `<h3>${data.properties.periods[i].name}</h3>
-                                    Low and High: ${data.properties.periods[i+1].temperature}°F, ${data.properties.periods[i].temperature}°F <br />
-                                    Weather Conditions: <br /> 
-                                    ${data.properties.periods[i].shortForecast} <br /> <br />
-                                    <img src="${data.properties.periods[i].icon}" alt="">`;
-
-                weatherDisplay.append(mobileSpacing.cloneNode(true));
-                weatherDisplay.append(column);
-                weatherDisplay.append(mobileSpacing.cloneNode(true));
+                createAndAppendElements(dayObject);
             }
         })
         .catch(error =>
@@ -69,4 +62,21 @@ async function fetchData(latitude, longitude)
         })
 }
 
-fetchData();
+function createAndAppendElements(dayObject)
+{
+    let column = document.createElement("div");
+    let mobileSpacing = document.createElement("div");
+
+    column.classList = "col-8 col-xl-3 text-center weatherColumn";
+    mobileSpacing.classList = "col-2 d-xl-none";
+
+    column.innerHTML =  `<h3>${dayObject.name}</h3>
+                        Low and High: ${dayObject.lowTemp}°F, ${dayObject.highTemp}°F <br />
+                        Weather Conditions: <br /> 
+                        ${dayObject.conditions} <br /> <br />
+                        <img src="${dayObject.imgSource}" alt="">`;
+
+    weatherDisplay.append(mobileSpacing.cloneNode(true));
+    weatherDisplay.append(column);
+    weatherDisplay.append(mobileSpacing.cloneNode(true));
+}
