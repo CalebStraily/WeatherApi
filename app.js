@@ -41,7 +41,6 @@ async function fetchData(latitude, longitude)
         .then(response => response.json())
         .then(data => 
         {
-            console.log(data);
             for (let i = 0; i < data.properties.periods.length; i += 2)
             {
                 let dayObject = 
