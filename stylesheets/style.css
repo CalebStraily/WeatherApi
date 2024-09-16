@@ -1,0 +1,22 @@
+body
+{
+    background-color: rgb(141, 200, 251) !important;
+    color: #ffffffb3 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.weatherColumn
+{
+    padding-top: 20px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border: solid black;
+    border-radius: 5px;
+    background-color: rgba(97, 97, 97, 0.17);
+    justify-content: center;
+}
+
+.header-container
+{
+    padding-top: 40px;
+}
