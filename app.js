@@ -41,18 +41,25 @@ async function fetchData(latitude, longitude)
         .then(response => response.json())
         .then(data => 
         {
-            for (let i = 0; i < data.properties.periods.length; i += 2)
+            for (let i = 0; i < data.properties.periods.length - 1; i++)
             {
                 let dayObject = 
                 {
                     name: data.properties.periods[i].name,
-                    lowTemp: data.properties.periods[i+1].temperature,
+                    lowTemp: data.properties.periods[i].temperature,
                     highTemp: data.properties.periods[i].temperature,
                     conditions: data.properties.periods[i].shortForecast,
                     imgSource: data.properties.periods[i].icon
                 }
 
-                createAndAppendElements(dayObject);
+                if (i == 0)
+                {
+                    createAndAppendElements(dayObject);
+                }
+                else if (i > 0 && data.properties.periods[i].isDaytime == true)
+                {
+                    createAndAppendElements(dayObject);
+                }
             }
         })
         .catch(error =>
