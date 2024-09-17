@@ -6,7 +6,6 @@ const findMe = () =>
   
     const success = (position) => 
     {
-        status.textContent = "success";
         const { latitude, longitude } = position.coords;
 
         fetchData(latitude, longitude);
