@@ -45,7 +45,7 @@ async function fetchData(latitude, longitude)
                 let dayObject = 
                 {
                     name: data.properties.periods[i].name,
-                    lowTemp: data.properties.periods[i].temperature,
+                    lowTemp: data.properties.periods[i + 1].temperature,
                     highTemp: data.properties.periods[i].temperature,
                     conditions: data.properties.periods[i].shortForecast,
                     imgSource: data.properties.periods[i].icon
